@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import WelcomeItem from "@/views/Accueil.vue";
 </script>
 
 <template>
@@ -27,5 +26,9 @@ a{
   border: rgba(235, 235, 235, 0.64) solid 1px;
   border-radius: 10px;
   padding: 5px;
+}
+
+nav{
+  margin-top: 10px;
 }
 </style>
