@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <h1>Inscription</h1>
         <div>
             <form>
@@ -28,5 +28,31 @@
 </script>
 
 <style scoped>
+.container {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+input {
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+button {
+  padding: 5px;
+  border-radius: 10px;
+  border: rgb(0, 0, 0) solid 1px;
+  background-color: rgba(235, 235, 235, 0.64);
+  cursor: pointer;
+}
 </style>
