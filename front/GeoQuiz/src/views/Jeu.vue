@@ -5,8 +5,8 @@
             <h3>Temps restant: 00</h3>
         </div>
         <div class="game_map">
-            <div id="img"></div>
-            <div id="map"></div>
+            <div id="img">JPEG.PNG</div>
+            <div id="map">MAP.JPEG</div>
         </div>
     </div>
 </template>
