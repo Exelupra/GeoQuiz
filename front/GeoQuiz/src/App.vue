@@ -6,6 +6,11 @@ import WelcomeItem from "@/components/WelcomeItem.vue";
 <template>
   <header>
     <div class="wrapper">
+      <nav>
+        <RouterLink to="/">Accueil</RouterLink>
+        <RouterLink to="/connection">Se connecter</RouterLink>
+        <RouterLink to="/inscription">S'inscrire</RouterLink>
+      </nav>
     </div>
   </header>
 
