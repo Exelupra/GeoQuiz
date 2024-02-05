@@ -10,6 +10,7 @@ import WelcomeItem from "@/views/Accueil.vue";
         <RouterLink to="/">Accueil</RouterLink>
         <RouterLink to="/connection">Se connecter</RouterLink>
         <RouterLink to="/inscription">S'inscrire</RouterLink>
+        <RouterLink to="/game">Page de jeu</RouterLink>
       </nav>
     </div>
   </header>

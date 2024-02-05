@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import WelcomeItem from "@/views/Accueil.vue";
 import Connection from "@/views/Connection.vue";
 import Inscription from "@/views/Inscription.vue";
+import Jeu from "@/views/Jeu.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,11 @@ const router = createRouter({
       path: '/inscription',
       name: 'inscription',
       component: Inscription
+    },
+    {
+      path: '/game',
+      name: 'game',
+      component: Jeu
     }
   ]
 })
