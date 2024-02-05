@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import WelcomeItem from "@/components/WelcomeItem.vue";
+import WelcomeItem from "@/views/Accueil.vue";
 import Connection from "@/views/Connection.vue";
 import Inscription from "@/views/Inscription.vue";
 
