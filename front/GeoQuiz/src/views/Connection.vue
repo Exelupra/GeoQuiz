@@ -5,11 +5,11 @@
       <form>
         <div>
           <label for="mail">Email</label>
-          <input type="text" id="mail" name="mail">
+          <input type="text" v-model="mail" id="mail" name="mail">
         </div>
         <div>
           <label for="password">Mot de passe</label>
-          <input type="password" id="password" name="password">
+          <input type="password" v-model="password" id="password" name="password">
         </div>
         <div>
           <button type="submit">Submit</button>
@@ -20,6 +20,20 @@
 </template>
 
 <script>
+
+export default {
+  data() {
+    return {
+      mail: '',
+      password: ''
+    }
+  },
+  methods: {
+    submit() {
+      console.log('submit')
+    }
+  }
+}
 
 </script>
 
