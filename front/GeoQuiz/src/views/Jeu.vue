@@ -6,12 +6,33 @@
         </div>
         <div class="game_map">
             <div id="img">JPEG.PNG</div>
-            <div id="map">MAP.JPEG</div>
+            <div id="map">MAP.JPEG{{ map }}</div>
         </div>
     </div>
 </template>
 
 <script>
+    import L from 'leaflet';
+    import 'leaflet/dist/leaflet.css';
+
+    export default {
+        data() {
+            return {
+                score: 0,
+                time: 0,
+                map: null,
+            }
+        }, 
+        mounted() {
+            // Créer une instance de la carte et l'attribuer à votre div avec l'ID "map"
+            this.map = L.map('map').setView([0,0], 13);
+
+            // Ajouter une couche de tuiles (tiles) à la carte, par exemple la couche OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+            }).addTo(this.map);
+        }
+    }
 
 </script>
 
