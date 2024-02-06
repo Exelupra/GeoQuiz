@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Connection</h1>
+    <h1>Connexion</h1>
     <div>
       <form>
         <div>
