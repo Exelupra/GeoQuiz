@@ -5,8 +5,7 @@ export default {
         app.config.globalProperties.$api = axios.create({
             baseURL: options.baseURL,
             headers: {
-                "Content-type": "application/json",
-                "Authorization": `key=${options.apiKey}`
+                "Content-type": "application/json"
             }
         })
     }
