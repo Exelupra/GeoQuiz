@@ -1,7 +1,11 @@
 <template>
   <div class="game">
+    <div id="results">
+        <div></div>
+    </div>
     <div class="game_info">
       <h3>Score: </h3>
+      <h3>Etapes: 0/0</h3>
       <h3>Temps restant: 00</h3>
     </div>
     <div class="game_map">
@@ -94,6 +98,11 @@ button {
   border: rgb(0, 0, 0) solid 1px;
   background-color: rgba(235, 235, 235, 0.64);
   cursor: pointer;
+}
+
+button:hover {
+    transition-duration: 0.5s;
+  background-color: rgba(235, 235, 235, 0.9);
 }
 
 </style>
