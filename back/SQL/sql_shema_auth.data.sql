@@ -1,0 +1,7 @@
+CREATE TABLE Auth.User (
+    IdUser INT PRIMARY KEY AUTO_INCREMENT,
+    MDP VARCHAR(255) NOT NULL,
+    tokenConnection VARCHAR(255),
+    dateToken TIMESTAMP,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
