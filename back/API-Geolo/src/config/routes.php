@@ -24,7 +24,7 @@ return function(\Slim\App $app):void {
         ->setName('Historique');
     $app->post('/Historique', \GeoQuiz\jeux\api\actions\PostHistoriqueAction::class)
         ->setName('HistoriquePost');
-    $app->delete('/Historique/{id}', GetIdPartieAction::class)
+    $app->delete('/Historique/{id}', \GeoQuiz\jeux\api\actions\DeleteHistoriqueAction::class)
         ->setName('HistoriqueDelete');
 
     $app->get('/test', GetIdPartieAction::class)

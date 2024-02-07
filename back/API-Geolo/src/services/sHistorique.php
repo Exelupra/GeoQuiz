@@ -33,4 +33,10 @@ class sHistorique
         $historique->save();
         return $historique;
     }
+    public function deleteHistorique($idHistorique)
+    {
+        $historique = Historique::find($idHistorique);
+        $historique->delete();
+        return "Historique supprimé avec succès";
+    }
 }
