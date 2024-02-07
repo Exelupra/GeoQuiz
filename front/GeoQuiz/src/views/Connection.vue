@@ -5,11 +5,11 @@
       <form>
         <div>
           <label for="mail">Email</label>
-          <input type="text" v-model="mail" id="mail" name="mail">
+          <input type="text" v-model="mail" id="mail" name="mail" required>
         </div>
         <div>
           <label for="password">Mot de passe</label>
-          <input type="password" v-model="password" id="password" name="password">
+          <input type="password" v-model="password" id="password" name="password" required>
         </div>
         <div>
           <button type="submit">Submit</button>
@@ -65,5 +65,10 @@ button {
   border: rgb(0, 0, 0) solid 1px;
   background-color: rgba(235, 235, 235, 0.64);
   cursor: pointer;
+}
+
+button:hover {
+  transition-duration: 0.5s;
+  background-color: rgba(235, 235, 235, 0.9);
 }
 </style>
