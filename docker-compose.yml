@@ -3,25 +3,10 @@ networks:
   geoQuiz.net:
     driver: bridge
 services:
-  geoQuiz.api.directus:
-    image: 'canals/php:latest'
-    ports:
-      - '2080:80'
-    volumes:
-      - ./back/API-Directus/public:/var/www/html
-      - ./back/API-Directus:/var/www
-    working_dir: /var/www
-    networks:
-      geoQuiz.net:
-         aliases:
-            - api.directus
-    depends_on:
-      - geoQuiz.db.directus
-
   geoQuiz.api.auth:
     image: 'canals/php:latest'
     ports:
-      - '2081:80'
+      - '37201:80'
     volumes:
       - ./back/API-Auth/public:/var/www/html
       - ./back/API-Auth:/var/www
@@ -36,7 +21,7 @@ services:
   geoQuiz.api.geo:
     image: 'canals/php:latest'
     ports:
-      - '2082:80'
+      - '37202:80'
     volumes:
       - ./back/API-Geolo/public:/var/www/html
       - ./back/API-Geolo:/var/www
@@ -51,25 +36,26 @@ services:
   adminer:
     image: adminer
     ports:
-      - '8080:8080'
+      - '37203:8080'
     networks:
       - geoQuiz.net
+    command: php -S 0.0.0.0:8080 -t /var/www/html
 
   geoQuiz.db.geo:
     image: 'mariadb:latest'
     command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
-    env_file: db.env
+    env_file: component/db.env
     ports:
-      - '3307:3306'
+      - '33204:3306'
     networks:
       - geoQuiz.net
 
   geoQuiz.db.auth:
     image: 'mariadb:latest'
     command: '--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci'
-    env_file: db.env
+    env_file: component/db.env
     ports:
-      - '3308:3306'
+      - '37205:3306'
     networks:
       - geoQuiz.net
 
@@ -80,10 +66,8 @@ services:
     # platform: linux/amd64
     volumes:
       - ./back/data/database:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: "directus"
-      POSTGRES_PASSWORD: "directus"
-      POSTGRES_DB: "directus"
+    env_file:
+      - component/dbDirectus.env
     networks:
       - geoQuiz.net
 
@@ -95,7 +79,7 @@ services:
   geoQuiz.directus:
     image: directus/directus:10.8.3
     ports:
-      - "8055:8055"
+      - "37206:8055"
     volumes:
       - ./back/uploads:/directus/uploads
       # If you want to load extensions from the host
@@ -103,23 +87,9 @@ services:
     depends_on:
       - cache
       - geoQuiz.db.directus
-    environment:
-      KEY: "255d861b-5ea1-5996-9aa3-922530ec40b1"
-      SECRET: "6116487b-cda1-52c2-b5b5-c8022c45e263"
+    env_file:
+      - component/directus.env
 
-      DB_CLIENT: "pg"
-      DB_HOST: "geoQuiz.db.directus"
-      DB_PORT: "5432"
-      DB_DATABASE: "directus"
-      DB_USER: "directus"
-      DB_PASSWORD: "directus"
-
-      CACHE_ENABLED: "true"
-      CACHE_STORE: "redis"
-      REDIS: "redis://cache:6379"
-
-      ADMIN_EMAIL: "admin@example.com"
-      ADMIN_PASSWORD: "d1r3ctu5"
 
       # Make sure to set this in production
       # (see https://docs.directus.io/self-hosted/config-options#general)
@@ -135,7 +105,7 @@ services:
   geoQuiz.frontend:
     image: php:7.4-apache
     ports:
-      - '2083:80'
+      - '37207:80'
     volumes:
       - ./front/GeoQuiz:/var/www/html
       - ./front/GeoQuiz:/var/www
