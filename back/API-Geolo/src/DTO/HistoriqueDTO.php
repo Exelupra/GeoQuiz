@@ -9,10 +9,15 @@ class HistoriqueDTO extends DTO
     public $Score;
     public $idSerie;
 
-    public function __construct($idHistorique, $Score, $idSerie)
+    public $idUser;
+
+    public $Date;
+    public function __construct($idHistorique, $Score, $idSerie, $idUser, $Date)
     {
         $this->idHistorique = $idHistorique;
         $this->Score = $Score;
         $this->idSerie = $idSerie;
+        $this->idUser = $idUser;
+        $this->Date = $Date;
     }
 }
