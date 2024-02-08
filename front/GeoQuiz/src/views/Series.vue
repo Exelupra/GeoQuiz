@@ -7,9 +7,15 @@ export default {
   },
   mounted() {
     this.$apidirectus.get('items/Serie').then((response) => {
-      console.log(response.data)
       this.series = response.data;
     })
+  },
+  methods: {
+    jeu(id) {
+      this.$apigeolo.post('creerPartie/' + id).then((response) => {
+        this.$router.push({path: '/game', params: {idSerie: response.data.idPartie}})
+      })
+    }
   }
 }
 
@@ -18,12 +24,11 @@ export default {
 
 <template>
   <div>
-  <h1>Series</h1>
-      <div v-for="serie in series" :key="serie.id">
-        <h2>{{ serie.title }}</h2>
-        <p>{{ serie.description }}</p>
-        <img :src="serie.image.data.full_url" alt="image">
-      </div>
+    <h1>Series</h1>
+    <div v-for="serie in series" :key="serie.idSerie">
+      <h2>{{ serie.Nom }}</h2>
+      <button @click="jeu(serie.idSerie)">Selectionner</button>
+    </div>
   </div>
 </template>
 
