@@ -10,6 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/connection">Se connecter</RouterLink>
         <RouterLink to="/inscription">S'inscrire</RouterLink>
         <RouterLink to="/game">Page de jeu</RouterLink>
+        <RouterLink to="/serie">Séries</RouterLink>
       </nav>
     </div>
   </header>
