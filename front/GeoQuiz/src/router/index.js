@@ -24,9 +24,14 @@ const router = createRouter({
       component: Inscription
     },
     {
+      path: '/serie',
+      name: 'serie',
+      component: Series
+    },
+    {
       path: '/game',
       name: 'game',
-      component: Series
+      component: Jeu
     }
   ]
 })
