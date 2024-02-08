@@ -31,45 +31,42 @@ export default {
       serie: null
     }
   },
-  beforeRouteEnter(to, from, next) {
+  mounted() {
     if(this.$route.params.id == null) {
       this.$apigeolo.post('/creePartie/1').then((response) => {
-        next((vm) => {
           this.$router.push('/game/',{id: response.data.id});
+      });
+    } else {
+      let idSerie = 0;
+      this.$apigeolo.get('/creePartie/'+this.$route.params.id)
+        .then((response) => {
+          idSeries = response.data.idSerie;
         });
+      
+      this.$apidirectus.get('/items/Serie/'+idSerie)
+        .then((response) => {
+          this.serie = response.data;
+        });
+
+        
+      let lat = this.serie.geoSerie.coordinates[0].value;
+      let long = this.serie.geoSerie.coordinates[1].value;
+
+      // Créer une instance de la carte et l'attribuer à votre div avec l'ID "map"
+      this.map = L.map('map').setView([lat,long], 5);
+
+      // Ajouter une couche de tuiles (tiles) à la carte, par exemple la couche OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+      }).addTo(this.map);
+      
+      this.map.on('click', (e) => {
+        if (this.marker) {
+          this.map.removeLayer(this.marker);
+        }
+        this.marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
       });
     }
-  },
-  mounted() {
-    let idSerie = 0;
-    this.$apigeolo.get('/creePartie/'+this.$route.params.id)
-      .then((response) => {
-        idSeries = response.data.idSerie;
-      });
-    
-    this.$apidirectus.get('/items/Serie/'+idSerie)
-      .then((response) => {
-        this.serie = response.data;
-      });
-
-      
-    let lat = this.serie.geoSerie.coordinates[0].value;
-    let long = this.serie.geoSerie.coordinates[1].value;
-
-    // Créer une instance de la carte et l'attribuer à votre div avec l'ID "map"
-    this.map = L.map('map').setView([lat,long], 5);
-
-    // Ajouter une couche de tuiles (tiles) à la carte, par exemple la couche OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-    }).addTo(this.map);
-    
-    this.map.on('click', (e) => {
-      if (this.marker) {
-        this.map.removeLayer(this.marker);
-      }
-      this.marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
-    });
   },
 }
 
