@@ -11,6 +11,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/inscription">S'inscrire</RouterLink>
         <RouterLink to="/game">Page de jeu</RouterLink>
         <RouterLink to="/serie">Séries</RouterLink>
+        <RouterLink to="/pagetest">Page de test</RouterLink>
       </nav>
     </div>
   </header>
