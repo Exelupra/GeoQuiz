@@ -11,7 +11,8 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: Accueil
+      component: Accueil,
+      meta: { hideHeader: true }
     },
     {
       path: '/connection',

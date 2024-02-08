@@ -1,15 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+
 </script>
 
 <template>
-  <header>
+  <header v-if="!$route.meta.hideHeader">
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Accueil</RouterLink>
-        <RouterLink to="/connection">Se connecter</RouterLink>
-        <RouterLink to="/inscription">S'inscrire</RouterLink>
-        <RouterLink to="/game">Page de jeu</RouterLink>
         <RouterLink to="/serie">Séries</RouterLink>
       </nav>
     </div>
@@ -18,7 +16,7 @@ import { RouterLink, RouterView } from 'vue-router'
   <RouterView />
 </template>
 
-<style scoped>
+<style>
 
 a{
   margin: 0 5px;
