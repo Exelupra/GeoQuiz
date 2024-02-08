@@ -6,22 +6,13 @@ use Slim\Handlers\Strategies\RequestHandler;
 use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use Tuupola\Middleware\CorsMiddleware;
-use Slim\Handlers\Strategies\RequestResponse;
-
 
 
 date_default_timezone_set('Europe/Paris');
 
-
+header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:37207");
 $app = AppFactory::create();
-$app->add(new CorsMiddleware([
-    "origin" => ["http://docketu.iutnc.univ-lorraine.fr:37207"],
-    "methods" => ["GET", "POST", "PATCH", "DELETE"],
-    "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since"],
-    "headers.expose" => [],
-    "credentials" => true,
-    "cache" => 0,
-]));
+
 // Ajoute le routing middleware
 $app->addRoutingMiddleware();
 
