@@ -31,6 +31,15 @@ export default {
       serie: null
     }
   },
+  beforeRouteEnter(to, from, next) {
+    if(this.$route.params.id == null) {
+      this.$apigeolo.post('/creePartie/1').then((response) => {
+        next((vm) => {
+          this.$router.push('/game/',{id: response.data.id});
+        });
+      });
+    }
+  },
   mounted() {
     let idSerie = 0;
     this.$apigeolo.get('/creePartie/'+this.$route.params.id)
