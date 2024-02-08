@@ -13,7 +13,7 @@
                 </div>
                 <div>
                     <label for="password">Confirmer le mot de passe</label>
-                    <input type="password" v-model="passwordConfirm" id="password" name="password" required>
+                    <input type="password" v-model="passwordConfirm" id="passwordConfirm" name="passwordConfirm" required>
                 </div>
                 <div>
                     <button type="submit">Submit</button>
