@@ -10,7 +10,7 @@ use Tuupola\Middleware\CorsMiddleware;
 
 date_default_timezone_set('Europe/Paris');
 
-//header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:42775");
+header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:37207");
 $app = AppFactory::create();
 
 // Ajoute le routing middleware
@@ -31,5 +31,5 @@ $db->bootEloquent();
 // Initialise la session
 session_start();
 
-//header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:42775");
+header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:37207");
 return $app;

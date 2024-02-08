@@ -27,8 +27,6 @@ header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:37207
     $app->delete('/Historique/{id}', \GeoQuiz\jeux\api\actions\DeleteHistoriqueAction::class)
         ->setName('HistoriqueDelete');
 
-    $app->get('/test', GetIdPartieAction::class)
-        ->setName('test');
     $app->options('/{routes:.+}', function ($request, $response, $args) {
         return $response;
     });
