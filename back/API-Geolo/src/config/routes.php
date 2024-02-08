@@ -7,7 +7,7 @@ use Slim\Psr7\Request;
 use Slim\Psr7\Response;
 use GeoQuiz\jeux\api\actions\GetIdPartieAction;
 return function(\Slim\App $app):void {
-//header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:42775");
+header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:37207");
 
 //celle ci marche
     $app->get('/creePartie/{id}', GetIdPartieAction::class)
@@ -41,5 +41,5 @@ return function(\Slim\App $app):void {
             ->withHeader('Access-Control-Allow-Credentials', 'true');
     });
 
-//header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:42775");
+header("Access-Control-Allow-Origin: http://docketu.iutnc.univ-lorraine.fr:37207");
 };
