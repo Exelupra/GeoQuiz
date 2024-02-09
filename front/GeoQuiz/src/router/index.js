@@ -5,6 +5,7 @@ import Inscription from "@/views/Inscription.vue";
 import Jeu from "@/views/Jeu.vue";
 import Series from "@/views/Series.vue";
 import Pagetest from "@/views/pagetest.vue";
+import Historique from "@/views/Historique.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +14,7 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: Accueil,
-      meta: { hideHeader: true }
+            meta: {hideHeader: true}
         },
         {
             path: '/connection',
@@ -39,6 +40,10 @@ const router = createRouter({
             path: '/pagetest',
             name: 'pagetest',
             component: Pagetest
+        },{
+            path: '/historique',
+            name: 'historique',
+            component: Historique
         }
     ]
 })
