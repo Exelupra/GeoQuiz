@@ -27,6 +27,7 @@ a{
   border: rgba(235, 235, 235, 0.64) solid 1px;
   border-radius: 10px;
   padding: 5px;
+  cursor: pointer;
 }
 
 nav{
