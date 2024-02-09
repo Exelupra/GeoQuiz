@@ -12,7 +12,6 @@
         <RouterLink to="/serie">Jouer</RouterLink>
         <router-link to="/historique">Historique</router-link>
       </div>
-      <button @click="goToPlay">Jouer</button>
     </div>
 </template>
 
@@ -20,15 +19,7 @@
   export default{
     computed: {
       isConnected(){
-        return localStorage.getItem('user') != null;
-      }
-    },
-    methods: {
-      goToPlay(){
-        this.$apigeolo.post('/creePartie/1')
-          .then((response) => {
-            this.$router.push('/game/'+response.data.idPartie);
-          });
+        return sessionStorage.getItem('user') != null;
       }
     }
   

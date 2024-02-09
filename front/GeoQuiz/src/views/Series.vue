@@ -49,6 +49,7 @@ export default {
 
 h1{
   text-align: center;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 
