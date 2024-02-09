@@ -17,7 +17,7 @@ export default {
   ,
   methods: {
     createGame(idSerie) {
-      this.$apigeolo.get('/creePartie/' + idSerie)
+      this.$apigeolo.post('/creePartie/' + idSerie)
           .then((response) => {
             console.log(response.data);
             this.$router.push({name: 'game', params: {id: response.data.idPartie}});
