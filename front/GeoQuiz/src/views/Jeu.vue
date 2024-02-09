@@ -28,29 +28,23 @@ export default {
       time: 0,
       map: null,
       marker: null,
+      partie: null,
       serie: null
     }
   },
   mounted() {
-    if(this.$route.params.id == null) {
-      this.$apigeolo.post('/creePartie/1').then((response) => {
-          this.$router.push('/game/',{id: response.data.id});
-      });
-    } else {
-      let idSerie = 0;
       this.$apigeolo.get('/creePartie/'+this.$route.params.id)
         .then((response) => {
-          idSeries = response.data.idSerie;
-        });
-      
-      this.$apidirectus.get('/items/Serie/'+idSerie)
-        .then((response) => {
-          this.serie = response.data;
+          this.partie = response.data;
         });
 
-        
-      let lat = this.serie.geoSerie.coordinates[0].value;
-      let long = this.serie.geoSerie.coordinates[1].value;
+        this.$apidirectus.get('/serie/'+this.partie.idSerie)
+          .then((res) => {
+            this.serie = res.data;
+          });
+
+        let lat = this.serie.geoSerie.coordinates[0].value;
+        let long = this.serie.geoSerie.coordinates[1].value;
 
       // Créer une instance de la carte et l'attribuer à votre div avec l'ID "map"
       this.map = L.map('map').setView([lat,long], 5);
@@ -66,7 +60,6 @@ export default {
         }
         this.marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
       });
-    }
   },
 }
 
