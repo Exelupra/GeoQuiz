@@ -27,7 +27,6 @@
       goToPlay(){
         this.$apigeolo.post('/creePartie/1')
           .then((response) => {
-            console.log(response.data);
             this.$router.push('/game/'+response.data.idPartie);
           });
       }
