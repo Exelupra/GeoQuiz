@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h1>Historique</h1>
     <table>
       <thead>
@@ -93,5 +93,26 @@ export default {
 </script>
 
 <style scoped>
-/* Ajoutez votre style ici si nécessaire */
+.container {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+table {
+  margin-top: 10px;
+  width: 25%;
+  text-align: center;
+}
+th, td {
+  border: rgba(235, 235, 235, 0.64) solid 2px;
+  padding: 10px;
+}
+thead{
+  background-color: rgba(235, 235, 235, 0.64);
+  color: #181818;
+}
 </style>
