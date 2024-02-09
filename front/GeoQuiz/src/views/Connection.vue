@@ -1,20 +1,18 @@
 <template>
   <div class="container">
     <h1>Connexion</h1>
-    <div>
-      <form>
-        <div>
-          <label for="mail">Email</label>
-          <input type="text" v-model="mail" id="mail" name="mail" required>
-        </div>
-        <div>
-          <label for="password">Mot de passe</label>
-          <input type="password" v-model="password" id="password" name="password" required>
-        </div>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+    <div class="form">
+
+      <div>
+        <label>Email</label>
+        <input type="email" v-model="mail" name="mail" required>
+      </div>
+      <div>
+        <label>Mot de passe</label>
+        <input type="password" v-model="password" name="password" required>
+      </div>
+      <button @click="connect()">Submit</button>
+
     </div>
   </div>
 </template>
@@ -29,8 +27,27 @@ export default {
     }
   },
   methods: {
-    submit() {
-      console.log('submit')
+    connect() {
+      if (this.mail === '' || this.password === '') {
+        alert('Veuillez remplir tous les champs');
+        return;
+      }
+      this.$apiauth.post('/user/connect', {
+        Email: this.mail,
+        MDP: this.password
+      }).then((response) => {
+        if(response.data == false){
+          alert('Email ou mot de passe incorrect');
+        }
+        else{
+          sessionStorage.setItem('user', JSON.stringify(response.data.Id));
+          sessionStorage.setItem('accessToken', response.data.AccessToken);
+          sessionStorage.setItem('refreshToken', response.data.RefreshToken);
+          this.$router.push({name: 'home'});
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   }
 }
@@ -47,7 +64,7 @@ export default {
   height: 80vh;
 }
 
-form {
+.form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;

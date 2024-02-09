@@ -11,7 +11,6 @@
       <div class="btn" v-else>
         <RouterLink to="/serie">Jouer</RouterLink>
       </div>
-      <RouterLink to="/serie">Jouer</RouterLink>
     </div>
 </template>
 
@@ -19,7 +18,7 @@
   export default{
     computed: {
       isConnected(){
-        return localStorage.getItem('user') != null;
+        return sessionStorage.getItem('user') != null;
       }
     }
   
