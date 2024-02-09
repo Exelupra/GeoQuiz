@@ -10,6 +10,7 @@
       </div>
       <div class="btn" v-else>
         <RouterLink to="/serie">Jouer</RouterLink>
+        <router-link to="/historique">Historique</router-link>
       </div>
       <RouterLink to="/serie">Jouer</RouterLink>
     </div>
