@@ -11,7 +11,7 @@
       <div class="btn" v-else>
         <RouterLink to="/serie">Jouer</RouterLink>
       </div>
-      <RouterLink to="/serie">Jouer</RouterLink>
+      <button @click="goToPlay">Jouer</button>
     </div>
 </template>
 
@@ -20,6 +20,15 @@
     computed: {
       isConnected(){
         return localStorage.getItem('user') != null;
+      }
+    },
+    methods: {
+      goToPlay(){
+        this.$apigeolo.post('/creePartie/1')
+          .then((response) => {
+            console.log(response.data);
+            this.$router.push('/game/'+response.data.idPartie);
+          });
       }
     }
   

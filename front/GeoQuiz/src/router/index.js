@@ -31,7 +31,7 @@ const router = createRouter({
             component: Series
         },
         {
-            path: '/game',
+            path: '/game/:id',
             name: 'game',
             component: Jeu
         },
