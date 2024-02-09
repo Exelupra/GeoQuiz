@@ -13,7 +13,7 @@ const router = createRouter({
             path: '/',
             name: 'home',
             component: Accueil,
-      meta: { hideHeader: true }
+            meta: {hideHeader: true}
         },
         {
             path: '/connection',
@@ -31,7 +31,7 @@ const router = createRouter({
             component: Series
         },
         {
-            path: '/game',
+            path: '/game/:id',
             name: 'game',
             component: Jeu
         },
