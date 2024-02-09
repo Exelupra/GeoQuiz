@@ -38,19 +38,21 @@ export default {
   },
   methods: {
     init(){
+      setTimeout(() => {
       this.$apigeolo.get('/creePartie/'+this.$route.params.id)
         .then((response) => {
           this.partie = response.data;
           this.currentStep = response.data.Etape;
           this.score = response.data.ScoreActuel;
         });
+      }, 1000);
 
         setTimeout(() => {
           this.$apidirectus.get('/serie/'+this.partie.idSerie)
           .then((res) => {
             this.serie = res.data;
           });
-        }, 1000);
+        }, 1500);
 
       setTimeout(() =>{
 
@@ -75,7 +77,7 @@ export default {
           }
           this.marker = L.marker([e.latlng.lat, e.latlng.lng]).addTo(this.map);
         });
-      }, 1500);
+      }, 2000);
 
       this.getImage();
       this.getPicture();
@@ -87,7 +89,7 @@ export default {
           this.currentImageID = res.data.Image;
           this.currentImageCoordonates = res.data.geo.coordinates;
         });
-      }, 1500);
+      }, 2000);
     },
     getPicture(){
       setTimeout(() => {
@@ -95,7 +97,7 @@ export default {
         .then((res) => {
           document.getElementById('img').innerHTML = `<img src="${res.data}" width="100%">`;
         });
-      }, 2000);
+      }, 2500);
     },
     calcScore(){
       const lat1 = this.currentImageCoordonates[1];
@@ -117,43 +119,41 @@ export default {
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       const distance = R * c; // Distance en kilomètres
 
+      let newScore = 0;
+
       if(distance < 1){
-        this.score += 5;
+        newScore += 5;
       } else if(distance < 2){
-        this.score += 3;
+        newScore += 3;
       } else if(distance < 4){
-        this.score += 1;
+        newScore += 1;
       }
 
       if(this.time < 5){
-        this.score *= 4;
+        newScore *= 4;
       } else if(this.time < 10){
-        this.score *= 2;
+        newScore *= 2;
       } else if(this.time>20){
-        this.score *= 0;
+        newScore *= 0;
       }
 
       this.$apigeolo.patch('/creePartie/'+this.partie.idPartie, {
-        score: this.score,
+        score: newScore,
       }).then((res) => {
         if(res.data == "Partie terminée"){
           this.isFinished = true;
         }
       });
 
-      setTimeout(() => {
         if(this.isFinished){
           //TODO quelque chose
         } else {
           this.init();
         }
-      }, 1000);
     }
   },
   mounted() {
         this.init();
-        this.getImage();
-        this.getPicture();
   },
 }
 
