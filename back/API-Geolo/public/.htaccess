@@ -1,18 +1,14 @@
 RewriteEngine On
-#
-# RewriteBase indispensable sur webetu :
 
-#RewriteBase /www/canals5/phox
-
-
-#
 # Pour interdire l'accès aux répertoires contenant du code
-#RewriteRule ^sql(/.*|)$ - [NC,F]
-#RewriteRule ^src(/.*|)$ - [NC,F]
+RewriteRule ^sql(/.*|)$ - [NC,F]
+RewriteRule ^src(/.*|)$ - [NC,F]
 
-#
-# réécriture pour slim
-
+# Réécriture pour Slim
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^ index.php [QSA,L]
+
+Header always set Access-Control-Allow-Origin "*"
+Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+Header always set Access-Control-Allow-Headers "Content-Type"

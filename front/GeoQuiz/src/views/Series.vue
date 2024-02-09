@@ -1,4 +1,6 @@
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -6,16 +8,15 @@ export default {
     }
   },
   mounted() {
-    this.$apidirectus.get('items/Serie').then((response) => {
-      this.series = response.data;
-    })
-  },
+    this.$apiauth.get('/user/1')
+        .then((response) => {
+          this.series = response.data;
+        }).catch((error) => {
+      console.log(error);
+    });
+  }
+  ,
   methods: {
-    jeu(id) {
-      this.$apigeolo.post('creerPartie/' + id).then((response) => {
-        this.$router.push({path: '/game', params: {idSerie: response.data.idPartie}})
-      })
-    }
   }
 }
 
@@ -27,7 +28,6 @@ export default {
     <h1>Series</h1>
     <div v-for="serie in series" :key="serie.idSerie">
       <h2>{{ serie.Nom }}</h2>
-      <button @click="jeu(serie.idSerie)">Selectionner</button>
     </div>
   </div>
 </template>

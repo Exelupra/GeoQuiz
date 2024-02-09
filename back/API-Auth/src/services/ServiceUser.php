@@ -1,7 +1,7 @@
 <?php
 
 namespace GeoQuiz\jeux\api\services;
-use GeoQuiz\jeux\api\DTO\UserDTO;
+use GeoQuiz\jeux\api\DTO\ImageDTO;
 use GeoQuiz\jeux\api\models\User;
 
 class serviceUser
@@ -10,7 +10,7 @@ class serviceUser
     {
 
         $historique = User::find($id);
-        $historiqueDTO = new UserDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
+        $historiqueDTO = new ImageDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
         return $historiqueDTO;
     }
 
@@ -45,7 +45,7 @@ class serviceUser
 
     public function testRefresh($id,$token){
         $historique = User::find($id);
-        $historiqueDTO = new UserDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
+        $historiqueDTO = new ImageDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
         $date = new DateTime($historiqueDTO->RefreshDate);
         $date->add(new DateInterval('PT1H'));
         if($token != $historiqueDTO->RefreshToken){
@@ -58,7 +58,7 @@ class serviceUser
 
     public function testAccess($id,$token){
         $historique = User::find($id);
-        $historiqueDTO = new UserDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
+        $historiqueDTO = new ImageDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
         if($token != $historiqueDTO->AccessToken){
             return false;
         }
