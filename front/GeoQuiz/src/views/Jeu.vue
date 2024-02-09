@@ -33,6 +33,7 @@ export default {
       currentStep: 1,
       currentImageID: null,
       currentImageCoordonates: [],
+      isFinished: false,
     }
   },
   methods: {
@@ -52,6 +53,11 @@ export default {
         }, 1000);
 
       setTimeout(() =>{
+
+        if(this.map != null){
+          this.map.remove();
+        }
+
         let long = this.serie.geoSerie.coordinates[0];
         let lat = this.serie.geoSerie.coordinates[1];
 
@@ -127,18 +133,21 @@ export default {
         this.score *= 0;
       }
 
-      this.$apigeolo.patch('/creePartie/1', {
+      this.$apigeolo.patch('/creePartie/'+this.partie.idPartie, {
         score: this.score,
       }).then((res) => {
-        /*if(){
-          this.init();
-          this.getImage();
-          this.getPicture();
-        } else {
-          this.$router.push('/historique');
-        }*/
-        console.log(res.data);
+        if(res.data == "Partie terminée"){
+          this.isFinished = true;
+        }
       });
+
+      setTimeout(() => {
+        if(this.isFinished){
+          //TODO quelque chose
+        } else {
+          this.init();
+        }
+      }, 1000);
     }
   },
   mounted() {
