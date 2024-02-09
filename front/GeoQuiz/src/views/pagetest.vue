@@ -10,6 +10,7 @@ export default {
   mounted() {
     this.$apigeolo.get('/creePartie/1')
       .then((response) => {
+        console.log(response.data);
         this.series = response.data;
       }).catch((error) => {
         console.log(error);

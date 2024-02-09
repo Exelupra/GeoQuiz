@@ -8,8 +8,9 @@ export default {
     }
   },
   mounted() {
-    this.$apiauth.get('/user/1')
+    this.$apidirectus.get('/serie')
         .then((response) => {
+          console.log(response.data);
           this.series = response.data;
         }).catch((error) => {
       console.log(error);

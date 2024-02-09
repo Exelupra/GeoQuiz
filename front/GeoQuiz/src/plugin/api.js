@@ -3,7 +3,7 @@ import axios from 'axios';
 export default {
     install: (app, options) => {
         app.config.globalProperties.$apidirectus = axios.create({
-            baseURL: 'http://docketu.iutnc.univ-lorraine.fr:37206',
+            baseURL: 'http://docketu.iutnc.univ-lorraine.fr:37208',
             headers: {
                 "Content-Type": "application/json"
             }

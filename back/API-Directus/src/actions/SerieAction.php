@@ -4,7 +4,7 @@ namespace GeoQuiz\jeux\api\actions;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-class TestAction extends AbstractAction
+class SerieAction extends AbstractAction
 {
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
     {
