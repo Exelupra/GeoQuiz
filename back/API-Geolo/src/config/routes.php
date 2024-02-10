@@ -18,6 +18,9 @@ return function(\Slim\App $app):void {
     $app->patch('/creePartie/{id}', \GeoQuiz\jeux\api\actions\PatchModifierPartieAction::class)
         ->setName('creePatchPartie');
 
+    $app->delete('/creePartie/{id}', \GeoQuiz\jeux\api\actions\DeletePartieAction::class)
+        ->setName('creeDeletePartie');
+
     //GET/POST/DELETE /Historique
     $app->get('/Historique/{id}', \GeoQuiz\jeux\api\actions\GetIdHistoriqueAction::class)
         ->setName('Historique');

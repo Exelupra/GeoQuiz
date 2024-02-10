@@ -32,13 +32,13 @@ export default {
   mounted() {
     this.idUser = sessionStorage.getItem('user');
     this.fetchHistorique();
+    this.testRefresh();
   },
   methods: {
     fetchHistorique() {
       this.$apigeolo.get(`/Historique/${this.idUser}`)
           .then((response) => {
             this.Historique = response.data;
-            console.log(response.data);
             this.fetchSeries();
             if (this.Historique.length > this.maxHistorySize) {
               this.deleteOldestHistorique();
@@ -53,7 +53,6 @@ export default {
         if (!this.series[idSerie]) {
           return this.$apidirectus.get(`/serie/${idSerie}`)
               .then((response) => {
-                console.log(response.data);
                 this.series[idSerie] = response.data.Nom;
               }).catch((error) => {
                 console.log(error);
@@ -63,11 +62,7 @@ export default {
         }
       });
 
-      Promise.all(promises)
-          .then(() => {
-            console.log("Toutes les séries ont été récupérées.");
-          })
-          .catch((error) => {
+      Promise.all(promises).catch((error) => {
             console.log(error);
           });
     },
@@ -81,10 +76,29 @@ export default {
       // Envoi de la demande de suppression
       this.$apigeolo.delete(`/Historique/${oldestHistoriqueId}`)
           .then(() => {
-            console.log(`Historique avec l'ID ${oldestHistoriqueId} supprimé avec succès.`);
             // Rafraîchissement de l'historique après la suppression
             this.fetchHistorique();
           }).catch((error) => {
+        console.log(error);
+      });
+    },
+    testRefresh(){
+      this.$apiauth.post('/user/checkrefresh',{
+        id: sessionStorage.getItem("user"),
+        token: sessionStorage.getItem("refreshToken")
+      }).then((response) => {
+        if(response.data == false){
+          sessionStorage.clear();
+          this.$router.push('/connection');
+          alert('Session expirée');
+        }else{
+          this.$apiauth.get('/user/' + sessionStorage.getItem('user')+'/startrefresh').then((response) => {
+            sessionStorage.setItem('refreshToken', response.data);
+          }).catch((error) => {
+            console.log(error);
+          });
+        }
+      }).catch((error) => {
         console.log(error);
       });
     }

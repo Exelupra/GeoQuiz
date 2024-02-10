@@ -10,6 +10,9 @@ class sPartie
     public function getPartie($idPartie)
     {
         $partie = Partie::find($idPartie);
+        if($partie == null){
+            return "Partie non trouvée";
+        }
         $partieDTO = new PartieDTO($partie->idPartie, $partie->idSerie, $partie->ScoreActuel, $partie->Etape);
         return $partieDTO;
     }

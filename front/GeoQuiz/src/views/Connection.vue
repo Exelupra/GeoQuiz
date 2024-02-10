@@ -42,12 +42,41 @@ export default {
         else{
           sessionStorage.setItem('user', JSON.stringify(response.data.Id));
           sessionStorage.setItem('accessToken', response.data.AccessToken);
-          sessionStorage.setItem('refreshToken', response.data.RefreshToken);
-          this.$router.push({name: 'home'});
+          this.$apiauth.get('/user/' + sessionStorage.getItem('user')+'/startrefresh').then((response) => {
+            sessionStorage.setItem('refreshToken', response.data);
+            this.$router.push({name: 'home'});
+          }).catch((error) => {
+            console.log(error);
+          });
+          }
+      }).catch((error) => {
+        console.log(error);
+      });
+    },
+    testRefresh(){
+      this.$apiauth.post('/user/checkrefresh',{
+        id: sessionStorage.getItem("user"),
+        token: sessionStorage.getItem("refreshToken")
+      }).then((response) => {
+        if(response.data == false){
+          sessionStorage.clear();
+          this.$router.push('/connection');
+          alert('Session expirée');
+        }else{
+          this.$apiauth.get('/user/' + sessionStorage.getItem('user')+'/startrefresh').then((response) => {
+            sessionStorage.setItem('refreshToken', response.data);
+          }).catch((error) => {
+            console.log(error);
+          });
         }
       }).catch((error) => {
         console.log(error);
       });
+    }
+  },
+  mounted() {
+    if(sessionStorage.getItem('user') != null){
+      this.testRefresh();
     }
   }
 }

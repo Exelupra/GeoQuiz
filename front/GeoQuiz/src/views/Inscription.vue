@@ -1,29 +1,25 @@
 <template>
-    <div class="container">
-        <h1>Inscription</h1>
+  <div class="container">
+    <h1>Inscription</h1>
+    <div>
         <div>
-            <form>
-                <div>
-                    <label for="mail">Email</label>
-                    <input type="text" v-model="mail" id="mail" name="mail" required>
-                </div>
-                <div>
-                    <label for="password">Mot de passe</label>
-                    <input type="password" v-model="password" id="password" name="password" required>
-                </div>
-                <div>
-                    <label for="password">Confirmer le mot de passe</label>
-                    <input type="password" v-model="passwordConfirm" id="passwordConfirm" name="passwordConfirm" required>
-                </div>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
+          <input v-model="mail" type="email" placeholder="Email" required>
+        </div>
+        <div>
+          <input v-model="password" type="password" placeholder="Mot de passe" required>
+        </div>
+        <div>
+          <input v-model="passwordConfirm" type="password" placeholder="Confirmer mot de passe">
+        </div>
+        <div>
+          <button @click="valide">S'inscrire</button>
         </div>
     </div>
+  </div>
 </template>
 
 <script>
+import router from "@/router/index.js";
 
 export default {
   data() {
@@ -34,12 +30,68 @@ export default {
     }
   },
   methods: {
-    submit() {
-      console.log('submit')
+    valide() {
+      let autre="";
+      let reste="";
+      let check = true;
+      if (this.password.length < 5) {
+        check = false;
+      }
+      if (this.password !== this.passwordConfirm) {
+        check = false;
+      }
+      if (check) {
+        this.$apiauth.post('/user', {
+          Email: this.mail,
+          MDP: this.password
+        }).then((response) => {
+          sessionStorage.clear();
+          sessionStorage.setItem('user', response.data.Id);
+          this.$apiauth.get('/user/' + sessionStorage.getItem('user')+'/startrefresh').then((response) => {
+            autre=response.data;
+            sessionStorage.setItem('refreshToken', response.data);
+            this.$apiauth.get('/user/' + sessionStorage.getItem('user')+'/startaccess').then((response) => {
+              sessionStorage.setItem('accessToken', response.data);
+              router.push('/');
+            }).catch((error) => {
+              console.log(error);
+            });
+          }).catch((error) => {
+            console.log(error);
+          });
+
+        }).catch((error) => {
+          console.log(error);
+        });
+      }
+    },
+    testRefresh(){
+      this.$apiauth.post('/user/checkrefresh',{
+        id: sessionStorage.getItem("user"),
+        token: sessionStorage.getItem("refreshToken")
+      }).then((response) => {
+        if(response.data == false){
+          sessionStorage.clear();
+          this.$router.push('/connection');
+          alert('Session expirée');
+        }else{
+          this.$apiauth.get('/user/' + sessionStorage.getItem('user')+'/startrefresh').then((response) => {
+            sessionStorage.setItem('refreshToken', response.data);
+          }).catch((error) => {
+            console.log(error);
+          });
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  },
+  mounted() {
+    if(sessionStorage.getItem('user') != null){
+      this.testRefresh();
     }
   }
 }
-
 </script>
 
 <style scoped>

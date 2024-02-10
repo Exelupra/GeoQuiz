@@ -1,8 +1,10 @@
 <?php
 
 namespace GeoQuiz\jeux\api\services;
-use GeoQuiz\jeux\api\DTO\ImageDTO;
+use GeoQuiz\jeux\api\DTO\UserDTO;
 use GeoQuiz\jeux\api\models\User;
+use DateTime;
+use DateInterval;
 
 class serviceUser
 {
@@ -10,7 +12,7 @@ class serviceUser
     {
 
         $historique = User::find($id);
-        $historiqueDTO = new ImageDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
+        $historiqueDTO = new UserDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
         return $historiqueDTO;
     }
 
@@ -45,23 +47,49 @@ class serviceUser
 
     public function testRefresh($id,$token){
         $historique = User::find($id);
-        $historiqueDTO = new ImageDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
+        $historiqueDTO = new UserDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
         $date = new DateTime($historiqueDTO->RefreshDate);
         $date->add(new DateInterval('PT1H'));
-        if($token != $historiqueDTO->RefreshToken){
+        $currentDateTime = new DateTime(); // Date actuelle
+        if ($token != $historiqueDTO->RefreshToken) {
             return false;
-        }else if($date > date("Y-m-d H:i:s")){
+        } else if ($currentDateTime > $date) {
+            $expiredMessage = "expired : " . $date->format('Y-m-d H:i:s') . " : " . $currentDateTime->format('Y-m-d H:i:s');
+            return $expiredMessage;
+        }else{
+            return true;
+        }
+    }
+
+    public function testAccess($id,$token){
+        $historique = User::find($id);
+        $historiqueDTO = new UsereDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
+        if($token != $historiqueDTO->AccessToken){
             return false;
         }
         return true;
     }
 
-    public function testAccess($id,$token){
-        $historique = User::find($id);
-        $historiqueDTO = new ImageDTO($historique->Id, $historique->Email, $historique->MDP, $historique->RefreshToken, $historique->RefreshDate, $historique->AccessToken, $historique->AccessDate);
-        if($token != $historiqueDTO->AccessToken){
+    public function getConnect($email,$mdp){
+        $historique = User::where('Email', $email)->first();
+        if($historique == null){
             return false;
+        }else
+        if(password_verify($mdp, $historique->MDP)){
+            return $historique;
         }
-        return true;
+        return false;
+    }
+
+    public function save($id,$game){
+        $historique = User::find($id);
+        $historique->SaveGame = $game;
+        $historique->save();
+        return $historique;
+    }
+
+    public function load($id){
+        $historique = User::find($id);
+        return $historique->SaveGame;
     }
 }

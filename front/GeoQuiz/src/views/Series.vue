@@ -7,6 +7,7 @@ export default {
     }
   },
   mounted() {
+    this.testRefresh();
     this.$apidirectus.get('/serie')
         .then((response) => {
           this.series = response.data;
@@ -19,9 +20,28 @@ export default {
     createGame(idSerie) {
       this.$apigeolo.post('/creePartie/' + idSerie)
           .then((response) => {
-            console.log(response.data);
             this.$router.push({name: 'game', params: {id: response.data.idPartie}});
           }).catch((error) => {
+        console.log(error);
+      });
+    },
+    testRefresh(){
+      this.$apiauth.post('/user/checkrefresh',{
+        id: sessionStorage.getItem("user"),
+        token: sessionStorage.getItem("refreshToken")
+      }).then((response) => {
+        if(response.data == false){
+          sessionStorage.clear();
+          this.$router.push('/connection');
+          alert('Session expirée');
+        }else{
+          this.$apiauth.get('/user/' + sessionStorage.getItem('user')+'/startrefresh').then((response) => {
+            sessionStorage.setItem('refreshToken', response.data);
+          }).catch((error) => {
+            console.log(error);
+          });
+        }
+      }).catch((error) => {
         console.log(error);
       });
     }

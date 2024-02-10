@@ -14,7 +14,8 @@ class SerieUniqueAction extends AbstractAction
         if ($jsonData === false) {
             die('Erreur lors de la récupération des données de l\'API');
         }
-        $response->getBody()->write(json_encode($jsonData));
+        $json=json_decode($jsonData);
+        $response->getBody()->write(json_encode($json->data));
         return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
     }
 }

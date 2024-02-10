@@ -1,35 +1,25 @@
-# GeoQuiz
+# Participant
 
-This template should help get you started developing with Vue 3 in Vite.
+-Hugot Benjamin
 
-## Recommended IDE Setup
+-Laura Gallion
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+-Amaury Demarque
 
-## Customize configuration
+-Clément Oudin
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+# Git repository
 
-## Project Setup
+https://github.com/Exelupra/GeoQuiz
 
-```sh
-npm install
-```
+# Site
 
-### Compile and Hot-Reload for Development
+http://docketu.iutnc.univ-lorraine.fr:37207
 
-```sh
-npm run dev
-```
+# Adminer
 
-### Compile and Minify for Production
+http://docketu.iutnc.univ-lorraine.fr:37203
 
-```sh
-npm run build
-```
+# Directus
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+http://docketu.iutnc.univ-lorraine.fr:37206
